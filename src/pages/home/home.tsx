@@ -38,7 +38,7 @@ export const Home = () => {
     <section className="home-container">
       <Header setSearch={setSearch}></Header>
       <div className="cards">
-        {search.length >= 3 ? (
+        {search.length >= 2 ? (
           books.map((book: Book) => (
             <Card book={book} save={handleFavoritar} key={book.id} />
           ))

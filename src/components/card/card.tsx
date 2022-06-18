@@ -16,7 +16,10 @@ export const Card = (props: CardProps) => {
   return (
     <div className="card">
       <img
-        src={book.volumeInfo.imageLinks?.thumbnail || ''}
+        src={
+          book.volumeInfo.imageLinks?.thumbnail ||
+          'https://books.google.com.br/googlebooks/images/no_cover_thumb.gif'
+        }
         alt={book.volumeInfo.title}
       />
 

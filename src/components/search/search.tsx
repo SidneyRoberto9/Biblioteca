@@ -1,6 +1,6 @@
 import './search.scss';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 
 interface SearchProps {
@@ -8,11 +8,8 @@ interface SearchProps {
 }
 
 export const Search = (props: SearchProps) => {
-  const [search, setSearch] = useState('');
-
   const handleChangeSearch = (value: string) => {
-    setSearch(value.toLocaleLowerCase());
-    props.setSearch(search);
+    props.setSearch(value.toLocaleLowerCase());
   };
 
   return (
@@ -20,16 +17,13 @@ export const Search = (props: SearchProps) => {
       <input
         type="text"
         className="searchTerm"
+        id="searchInput"
         placeholder="Pesquise na Biblioteca..."
-        value={search}
+        spellCheck="false"
         onChange={(e) => handleChangeSearch(e.target.value)}
       />
 
-      <button
-        type="submit"
-        className="searchButton"
-        onClick={() => props.setSearch(search)}
-      >
+      <button type="submit" className="searchButton">
         <BiSearch className="icon" />
       </button>
     </div>
