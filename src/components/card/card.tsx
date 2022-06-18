@@ -3,25 +3,20 @@ import './card.scss';
 import React from 'react';
 import { AiFillHeart } from 'react-icons/ai';
 
-export const Card = () => {
+interface CardProps {
+  title: string;
+  img: string;
+  save: (title: string) => void;
+}
+
+export const Card = (props: CardProps) => {
   return (
     <div className="card">
-      <img
-        src="http://books.google.com/books/content?id=kYE8EAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-        alt=""
-      />
+      <img src={props.img} alt={props.title} />
 
-      <span className="title">
-        League of Legends: Reinos de RuneterraLeague of Legends: Reinos de
-        RuneterraLeague of Legends: Reinos de RuneterraLeague of Legends: Reinos
-        de RuneterraLeague of Legends: Reinos de RuneterraLeague of Legends:
-        Reinos de RuneterraLeague of Legends: Reinos de RuneterraLeague of
-        Legends: Reinos de RuneterraLeague of Legends: Reinos de RuneterraLeague
-        of Legends: Reinos de RuneterraLeague of Legends: Reinos de
-        RuneterraLeague of Legends: Reinos de Runeterra
-      </span>
+      <span className="title">{props.title}</span>
 
-      <span className="favorite">
+      <span className="favorite" onClick={() => props.save(props.title)}>
         <AiFillHeart className="icon" />
       </span>
     </div>
