@@ -2,14 +2,10 @@ import './App.scss';
 
 import React from 'react';
 
-import { Header } from './components/header/header';
+import { Home } from './pages/home/home';
 
 function App() {
-  return (
-    <div className="App">
-      <Header></Header>
-    </div>
-  );
+  return <Home />;
 }
 
 export default App;
