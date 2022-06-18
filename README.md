@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+## DESAFIO TÉCNICO - FRONTEND - BIBLIOTECA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Criar um sistema para buscar livros disponíveis na API do Google Books.
 
-## Available Scripts
+## Requisitos funcionais
 
-In the project directory, you can run:
+- Como usuário gostaria de digitar algumas palavras e ver uma lista de livros que tenha relação com a minha busca.
+- Como usuário gostaria de clicar em um destes livros para ver em detalhes as descrições do livro.
+- Como usuário gostaria de marcar o livro como favorito para, futuramente filtrá-los por isso.
+- Como usuário eu devo utilizar um paginador para acessar o restante dos resultados.
+- Como usuário eu gostaria de abrir o site em um dispositivo móvel sem comprometer a navegação do site.
+- Como desenvolvedor gostaria de realizar testes unitários para garantir a integridade do que está sendo desenvolvido.
 
-### `yarn start`
+## Requisitos não funcionais
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Você deve utilizar o framework React e Typescript.
+- Tente reutilizar o máximo possível de código.
+- Para teste utilize a ferramenta que desejar, como: Jasmine, Karma, Mocha.
+- Layout pode ser utilizado frameworks como Bootstrap, Bulma, Tailwind, etc.
+- Se precisar utilize automatizadores de tarefa como Gulp, Webpack, etc.
+- Realize commits (git) constantes de acordo com o progresso das atividades.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Links relacionados
 
-### `yarn test`
+- API Google Books - https://developers.google.com/books
+- React - https://reactis.org
+- Jasmine - https://jasmine.github.io/
+- Mocha - https://mochajs.org/
+- Gulp - https://gulpis.com
+- Webpack - https://webpackjs.org/
+- GitHub - https://github.com
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Critérios de avaliação
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Entendimento dos requisitos
+- Afinidade com a ferramenta utilizada
+- Testes unitários
+- Estrutura de arquivos
+- Padrão de escrita do código
+- Utilização de boas práticas
