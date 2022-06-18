@@ -5,7 +5,7 @@ import React from 'react';
 import { Search } from '../search/search';
 
 interface HeaderProps {
-  setBooks: (str: any[]) => void;
+  setSearch: (value: string) => void;
 }
 
 export const Header = (props: HeaderProps) => {
@@ -15,7 +15,7 @@ export const Header = (props: HeaderProps) => {
         <h1>Biblioteca</h1>
       </div>
 
-      <Search setBooks={props.setBooks} />
+      <Search setSearch={props.setSearch} />
 
       <ul>
         <li>Inicio</li>

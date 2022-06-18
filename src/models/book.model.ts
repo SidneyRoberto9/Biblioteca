@@ -99,3 +99,9 @@ export interface ReadingModes {
   text: boolean;
   image: boolean;
 }
+
+export interface favorite {
+  id: string;
+  title: string;
+  selfLink: string;
+}

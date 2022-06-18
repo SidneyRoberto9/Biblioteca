@@ -1,41 +1,46 @@
 import './home.scss';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Card } from '../../components/card/card';
 import { Header } from '../../components/header/header';
+import { Book, favorite } from '../../models/book.model';
+import googleApi from '../../services/google-api';
+import { formatStringToSearch } from '../../utils/format.util';
 
 export const Home = () => {
-  const [books, setBooks] = useState([] as any[]);
+  const [books, setBooks] = useState([] as Book[]);
+  const [search, setSearch] = useState('');
+  let index = 0;
 
-  const imagem =
-    'http://books.google.com/books/content?id=kYE8EAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api';
-  const titulo = 'League of Legends: Reinos de Runeterra';
-
-  const handleFavoritar = (title: string) => {
+  const handleFavoritar = (book: favorite) => {
     console.log(books);
   };
 
+  useEffect(() => {
+    const getVolumes = async () => {
+      await googleApi
+        .get(
+          `/volumes?q=${formatStringToSearch(
+            search
+          )}&maxResults=25&startIndex=${index}&key=${
+            process.env.REACT_APP_GOOGLE_API_KEY
+          }`
+        )
+        .then((response) => setBooks(response.data.items))
+        .catch((error) => console.log(error));
+    };
+
+    search.length > 2 && getVolumes();
+  }, [search, index]);
+
   return (
     <section className="home-container">
-      <Header setBooks={setBooks}></Header>
+      <Header setSearch={setSearch}></Header>
       <div className="cards">
-        <Card img={imagem} title={'teste'} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
-        <Card img={imagem} title={titulo} save={handleFavoritar} />
+        {books.map((book: Book) => (
+          <Card book={book} save={handleFavoritar} key={book.id} />
+        ))}
       </div>
     </section>
   );

@@ -1,38 +1,19 @@
 import './search.scss';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 
-import googleApi from '../../services/google-api';
-import { formatStringToSearch } from '../../utils/format.util';
-
 interface SearchProps {
-  setBooks: (str: any[]) => void;
+  setSearch: (value: string) => void;
 }
 
 export const Search = (props: SearchProps) => {
-  const [searchBooks, setSearchBooks] = useState([] as any[]);
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    const getVolumes = () => {
-      googleApi
-        .get(
-          `/volumes?q=${formatStringToSearch(search)}&key=${
-            process.env.REACT_APP_GOOGLE_API_KEY
-          }`
-        )
-        .then((response) => setSearchBooks(response.data.items))
-        .catch((error) => console.log(error));
-    };
-
-    search.length > 2 && getVolumes();
-  }, [search]);
-
   const handleChangeSearch = (value: string) => {
-    setSearch(value);
+    setSearch(value.toLocaleLowerCase());
     if (search.length > 2) {
-      props.setBooks(searchBooks);
+      props.setSearch(search);
     }
   };
 
@@ -42,13 +23,14 @@ export const Search = (props: SearchProps) => {
         type="text"
         className="searchTerm"
         placeholder="Pesquise na Biblioteca..."
+        value={search}
         onChange={(e) => handleChangeSearch(e.target.value)}
       />
 
       <button
         type="submit"
         className="searchButton"
-        onClick={() => props.setBooks(searchBooks)}
+        onClick={() => props.setSearch(search)}
       >
         <BiSearch className="icon" />
       </button>
