@@ -7,19 +7,36 @@
   background-color: color.$primary;
   color: color.$text;
 
-  height: 125px;
+  height: 80px;
   width: 100%;
 
-  h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    cursor: pointer;
+  .title {
+    background-color: color.$secondary;
+    height: 60px;
+    border-radius: 22px;
+    transition: filter 500ms ease;
+
+    h1 {
+      color: color.$primary;
+      font-size: 2rem;
+      line-height: 1.25rem;
+      font-weight: bold;
+      padding: 0 25px;
+
+      cursor: pointer;
+    }
+
+    &:hover {
+      filter: brightness(0.85);
+    }
   }
 
   ul {
     display: flex;
     align-items: center;
     gap: 2em;
+    border-left: 2px solid color.$secondary;
+    height: 50px;
 
     li {
       text-decoration: none;
@@ -33,7 +50,7 @@
         display: block;
         width: 0;
         height: 2px;
-        background-color: color.$text;
+        background-color: color.$secondary;
         transition: width 500ms;
       }
 

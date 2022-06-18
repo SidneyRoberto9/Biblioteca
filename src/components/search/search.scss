@@ -1,0 +1,33 @@
+@use '../../index.scss' as color;
+
+.search {
+  width: 50%;
+  position: relative;
+  display: flex;
+
+  .searchTerm {
+    width: 100%;
+    border: 2px solid color.$secondary;
+    border-right: none;
+    padding: 5px;
+    padding-left: 10px;
+    height: 25px;
+
+    border-radius: 10px 0 0 10px;
+    outline: none;
+    color: color.$text;
+  }
+
+  .searchButton {
+    width: 40px;
+    height: 39px;
+    border: 1px solid color.$secondary;
+    background: color.$secondary;
+    text-align: center;
+    color: color.$white;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    font-size: 1.725rem;
+    line-height: 1rem;
+  }
+}
