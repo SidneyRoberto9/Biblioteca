@@ -1,1 +1,58 @@
 @use '../../index.scss' as color;
+
+.card {
+  width: 220px;
+  height: 280px;
+  position: relative;
+
+  background-color: color.$tertiary;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  img {
+    margin: 0 auto;
+    margin-top: 15px;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+
+  .title {
+    color: color.$white;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+
+    padding: 0 15px;
+    cursor: pointer;
+
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-box-pack: end;
+  }
+
+  .favorite {
+    position: absolute;
+    right: 35px;
+    top: 5px;
+
+    height: 30px;
+    width: 30px;
+    background-color: color.$white;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      height: 20px;
+      width: 20px;
+      fill: color.$secondary;
+    }
+  }
+}
