@@ -38,9 +38,13 @@ export const Home = () => {
     <section className="home-container">
       <Header setSearch={setSearch}></Header>
       <div className="cards">
-        {books.map((book: Book) => (
-          <Card book={book} save={handleFavoritar} key={book.id} />
-        ))}
+        {search.length >= 3 ? (
+          books.map((book: Book) => (
+            <Card book={book} save={handleFavoritar} key={book.id} />
+          ))
+        ) : (
+          <div className="bg">Faça Sua Pesquisa Para Obter Resultados...</div>
+        )}
       </div>
     </section>
   );

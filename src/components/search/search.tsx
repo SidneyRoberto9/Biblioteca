@@ -12,9 +12,7 @@ export const Search = (props: SearchProps) => {
 
   const handleChangeSearch = (value: string) => {
     setSearch(value.toLocaleLowerCase());
-    if (search.length > 2) {
-      props.setSearch(search);
-    }
+    props.setSearch(search);
   };
 
   return (
