@@ -8,7 +8,7 @@ export const Header = () => {
       <h1>Biblioteca</h1>
 
       <ul>
-        <li>Home</li>
+        <li>Inicio</li>
         <li>Favoritos</li>
       </ul>
     </header>
