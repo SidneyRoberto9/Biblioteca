@@ -1,44 +1,27 @@
 import './home.scss';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { Card } from '../../components/card/card';
 import { Header } from '../../components/header/header';
+import { Pagination } from '../../components/pagination/pagination';
+import { useBook } from '../../hooks';
 import { Book, favorite } from '../../models/book.model';
-import googleApi from '../../services/google-api';
-import { formatStringToSearch } from '../../utils/format.util';
 
 export const Home = () => {
-  const [books, setBooks] = useState([] as Book[]);
-  const [search, setSearch] = useState('');
-  let index = 0;
+  const { books, search } = useBook();
 
   const handleFavoritar = (book: favorite) => {
     console.log(books);
   };
 
-  useEffect(() => {
-    const getVolumes = async () => {
-      await googleApi
-        .get(
-          `/volumes?q=${formatStringToSearch(
-            search
-          )}&maxResults=25&startIndex=${index}&key=${
-            process.env.REACT_APP_GOOGLE_API_KEY
-          }`
-        )
-        .then((response) => setBooks(response.data.items))
-        .catch((error) => console.log(error));
-    };
-
-    search.length > 2 && getVolumes();
-  }, [search, index]);
+  const searchLength = search.length >= 3;
 
   return (
     <section className="home-container">
-      <Header setSearch={setSearch}></Header>
+      <Header />
       <div className="cards">
-        {search.length >= 2 ? (
+        {searchLength ? (
           books.map((book: Book) => (
             <Card book={book} save={handleFavoritar} key={book.id} />
           ))
@@ -46,6 +29,7 @@ export const Home = () => {
           <div className="bg">Faça Sua Pesquisa Para Obter Resultados...</div>
         )}
       </div>
+      {searchLength && <Pagination />}
     </section>
   );
 };

@@ -109,6 +109,7 @@ export interface favorite {
 export interface BooksContextData {
   books: Book[];
   searchContent: (search: string) => void;
+  search: string;
   changePage: (page: number) => void;
   getPage: () => Promise<number>;
   maxPages: number;

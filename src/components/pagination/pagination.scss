@@ -1,0 +1,18 @@
+@use '../../index.scss' as color;
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style-type: none;
+  gap: 10px;
+
+  button {
+    border-radius: 0.25rem;
+    border: none;
+    background: color.$primary;
+    padding: 12px;
+    margin-bottom: 2rem;
+    cursor: pointer;
+  }
+}

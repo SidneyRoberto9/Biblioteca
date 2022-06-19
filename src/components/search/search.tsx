@@ -3,14 +3,10 @@ import './search.scss';
 import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 
-interface SearchProps {
-  setSearch: (value: string) => void;
-}
+import { useBook } from '../../hooks';
 
-export const Search = (props: SearchProps) => {
-  const handleChangeSearch = (value: string) => {
-    props.setSearch(value.toLocaleLowerCase());
-  };
+export const Search = () => {
+  const { searchContent } = useBook();
 
   return (
     <div className="search">
@@ -20,7 +16,7 @@ export const Search = (props: SearchProps) => {
         id="searchInput"
         placeholder="Pesquise na Biblioteca..."
         spellCheck="false"
-        onChange={(e) => handleChangeSearch(e.target.value)}
+        onChange={(e) => searchContent(e.target.value)}
       />
 
       <button type="submit" className="searchButton">

@@ -36,7 +36,7 @@ export function BooksContextProvider({ children }: BooksContextProps) {
   };
 
   useEffect(() => {
-    getBooks();
+    search.length >= 3 && getBooks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, search]);
 
@@ -57,6 +57,7 @@ export function BooksContextProvider({ children }: BooksContextProps) {
       value={{
         books,
         searchContent,
+        search,
         changePage,
         getPage,
         maxPages,
