@@ -19,6 +19,14 @@ export function BooksContextProvider({ children }: BooksContextProps) {
   const [page, setPage] = useState(1);
   const [maxPages, setMaxPages] = useState(1);
 
+  const getFavorites = () => {
+    const favorites = localStorage.getItem('favorites');
+    if (!favorites) {
+      return [];
+    }
+    return JSON.parse(favorites);
+  };
+
   const getBooks = async () => {
     await googleApi
       .get(
@@ -30,17 +38,33 @@ export function BooksContextProvider({ children }: BooksContextProps) {
         )}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       )
       .then((response) => {
-        setBooks(response.data.items);
+        setBooks(() => {
+          const favoriteBooks = getFavorites();
+
+          let library = response.data.items.map((book: Book) => {
+            if (favoriteBooks.find((data: Book) => data.id === book.id)) {
+              return {
+                ...book,
+                favorite: true,
+              };
+            }
+            return {
+              ...book,
+              favorite: false,
+            };
+          });
+
+          return library;
+        });
         setMaxPages(response.data.totalItems);
-        console.log(maxPages);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => error);
   };
 
   useEffect(() => {
     search.length >= 3 && getBooks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, search]);
+  }, [page, search, books]);
 
   const changePage = async (page: number) => {
     setPage(page);

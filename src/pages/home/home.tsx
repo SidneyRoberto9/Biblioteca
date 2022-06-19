@@ -6,7 +6,7 @@ import { Card } from '../../components/card/card';
 import { Header } from '../../components/header/header';
 import { Pagination } from '../../components/pagination/pagination';
 import { useBook } from '../../hooks';
-import { Book, favorite } from '../../models/book.model';
+import { Book } from '../../models/book.model';
 
 export const Home = () => {
   const { books, search, changePage, maxPages } = useBook();
@@ -14,8 +14,24 @@ export const Home = () => {
 
   const searchLength = search.length >= 3;
 
-  const handleFavoritar = (book: favorite) => {
-    console.log(books);
+  const handleFavoritar = (book: Book) => {
+    const fav = localStorage.getItem('favorites');
+
+    if (!fav) {
+      localStorage.setItem('favorites', JSON.stringify([book]));
+      return;
+    }
+
+    const favorites = JSON.parse(fav);
+
+    if (favorites.find((data: Book) => data.id === book.id)) {
+      let newFavorites = favorites.filter((data: Book) => data.id !== book.id);
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+      return;
+    }
+
+    favorites.push(book);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
   };
 
   const setOffset = (offset: number) => {

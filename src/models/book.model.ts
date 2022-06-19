@@ -7,6 +7,7 @@ export interface Book {
   saleInfo: SaleInfo;
   accessInfo: AccessInfo;
   searchInfo: SearchInfo;
+  favorite: boolean;
 }
 
 export interface AccessInfo {
@@ -98,12 +99,6 @@ export interface PanelizationSummary {
 export interface ReadingModes {
   text: boolean;
   image: boolean;
-}
-
-export interface favorite {
-  id: string;
-  title: string;
-  selfLink: string;
 }
 
 export interface BooksContextData {
