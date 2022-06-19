@@ -14,10 +14,12 @@ type BooksContextProps = {
 
 export function BooksContextProvider({ children }: BooksContextProps) {
   const MAX_PAGE = 20;
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState<string>('');
   const [books, setBooks] = useState<Book[]>([]);
-  const [page, setPage] = useState(1);
-  const [maxPages, setMaxPages] = useState(1);
+  const [page, setPage] = useState<number>(1);
+  const [maxPages, setMaxPages] = useState<number>(1);
+  const [favorite, setFavorite] = useState<boolean>(false);
+  const [favoriteList, setFavoriteList] = useState<Book[]>([]);
 
   const getFavorites = () => {
     const favorites = localStorage.getItem('favorites');
@@ -35,7 +37,7 @@ export function BooksContextProvider({ children }: BooksContextProps) {
         )}&maxResults=${MAX_PAGE}&startIndex=${parseInt(
           (page * MAX_PAGE - MAX_PAGE).toString(),
           10
-        )}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
+        )}`
       )
       .then((response) => {
         setBooks(() => {
@@ -62,9 +64,17 @@ export function BooksContextProvider({ children }: BooksContextProps) {
   };
 
   useEffect(() => {
-    search.length >= 3 && getBooks();
+    setFavoriteList(getFavorites());
+  }, [favorite]);
+
+  useEffect(() => {
+    if (favorite) {
+      setBooks(favoriteList);
+    } else {
+      search.length >= 3 && getBooks();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, search, books]);
+  }, [page, search, books, favorite]);
 
   const changePage = async (page: number) => {
     setPage(page);
@@ -78,15 +88,26 @@ export function BooksContextProvider({ children }: BooksContextProps) {
     setSearch(value);
   };
 
+  const favorited = async (value: boolean) => {
+    setFavorite(value);
+  };
+
+  const getFavoriteState = () => {
+    return favorite;
+  };
+
   return (
     <BooksContext.Provider
       value={{
         books,
+        favoriteList,
         searchContent,
         search,
         changePage,
         getPage,
         maxPages,
+        favorited,
+        getFavoriteState,
       }}
     >
       {children}

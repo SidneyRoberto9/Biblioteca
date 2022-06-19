@@ -2,11 +2,27 @@ import './filtro.scss';
 
 import React, { useState } from 'react';
 
+import { useBook } from '../../hooks';
+
 export const Filtro = () => {
   const [filter, setFilter] = useState('Todos');
 
+  const { favorited } = useBook();
+
   const handleShow = (value: string) => {
     setFilter(value);
+
+    switch (value) {
+      case 'Todos':
+        favorited(false);
+        break;
+      case 'Favoritos':
+        favorited(true);
+        break;
+      default:
+        favorited(false);
+        break;
+    }
   };
 
   const handleDrop = () => {

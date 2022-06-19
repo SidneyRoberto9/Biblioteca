@@ -8,10 +8,11 @@ import { Book } from '../../models/book.model';
 interface CardProps {
   book: Book;
   save: (book: Book) => void;
+  favoritoState: boolean;
 }
 
 export const Card = (props: CardProps) => {
-  const { book, save } = props;
+  const { book, save, favoritoState } = props;
 
   return (
     <div className="card">
@@ -25,12 +26,14 @@ export const Card = (props: CardProps) => {
 
       <span className="title">{book.volumeInfo.title}</span>
 
-      <span
-        className={book.favorite ? 'liked' : 'favorite'}
-        onClick={() => save(book)}
-      >
-        <AiFillHeart className="icon" />
-      </span>
+      {favoritoState && (
+        <span
+          className={book.favorite ? 'liked' : 'favorite'}
+          onClick={() => save(book)}
+        >
+          <AiFillHeart className="icon" />
+        </span>
+      )}
     </div>
   );
 };

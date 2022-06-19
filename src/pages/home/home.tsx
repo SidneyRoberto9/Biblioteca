@@ -9,7 +9,14 @@ import { useBook } from '../../hooks';
 import { Book } from '../../models/book.model';
 
 export const Home = () => {
-  const { books, search, changePage, maxPages } = useBook();
+  const {
+    books,
+    search,
+    changePage,
+    maxPages,
+    getFavoriteState,
+    favoriteList,
+  } = useBook();
   const [countPage, setCountPage] = useState(1);
 
   const searchLength = search.length >= 3;
@@ -48,22 +55,44 @@ export const Home = () => {
     <section className="home-container">
       <Header />
 
-      <div className="cards">
-        {searchLength ? (
-          books.map((book: Book) => (
-            <Card book={book} save={handleFavoritar} key={book.id} />
-          ))
-        ) : (
-          <div className="bg">Faça Sua Pesquisa Para Obter Resultados...</div>
-        )}
-      </div>
-      {searchLength && (
-        <Pagination
-          limit={25}
-          total={maxPages}
-          offset={countPage}
-          setOffset={setOffset}
-        />
+      {!getFavoriteState() ? (
+        <>
+          <div className="cards">
+            {searchLength ? (
+              books.map((book: Book) => (
+                <Card
+                  book={book}
+                  save={handleFavoritar}
+                  key={book.id}
+                  favoritoState={!getFavoriteState()}
+                />
+              ))
+            ) : (
+              <div className="bg">
+                Faça Sua Pesquisa Para Obter Resultados...
+              </div>
+            )}
+          </div>
+          {searchLength && (
+            <Pagination
+              limit={25}
+              total={maxPages}
+              offset={countPage}
+              setOffset={setOffset}
+            />
+          )}
+        </>
+      ) : (
+        <div className="cards">
+          {favoriteList.map((book: Book) => (
+            <Card
+              book={book}
+              save={handleFavoritar}
+              key={book.id}
+              favoritoState={!getFavoriteState()}
+            />
+          ))}
+        </div>
       )}
     </section>
   );
