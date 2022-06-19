@@ -20,6 +20,7 @@ export function BooksContextProvider({ children }: BooksContextProps) {
   const [maxPages, setMaxPages] = useState<number>(1);
   const [favorite, setFavorite] = useState<boolean>(false);
   const [favoriteList, setFavoriteList] = useState<Book[]>([]);
+  const [actualBook, setActualBook] = useState<Book>();
 
   const getFavorites = () => {
     const favorites = localStorage.getItem('favorites');
@@ -96,6 +97,10 @@ export function BooksContextProvider({ children }: BooksContextProps) {
     return favorite;
   };
 
+  const setActualBookF = async (book: Book) => {
+    setActualBook(book);
+  };
+
   return (
     <BooksContext.Provider
       value={{
@@ -108,6 +113,8 @@ export function BooksContextProvider({ children }: BooksContextProps) {
         maxPages,
         favorited,
         getFavoriteState,
+        actualBook,
+        setActualBookF,
       }}
     >
       {children}

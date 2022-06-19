@@ -1,0 +1,27 @@
+@use '../../index.scss' as color;
+
+h2 {
+  color: color.$text;
+  font-size: 2rem;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  color: color.$text;
+
+  a {
+    margin-top: 25px;
+    align-self: end;
+    text-decoration: none;
+    color: color.$primary;
+    font-size: 20px;
+    background: color.$tertiary;
+    padding: 2px 10px;
+    border-radius: 10px;
+    transition: color 500ms;
+
+    &:hover {
+      color: color.$white;
+    }
+  }
+}

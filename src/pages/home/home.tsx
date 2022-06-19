@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import { Card } from '../../components/card/card';
 import { Header } from '../../components/header/header';
+import { ModalInfo } from '../../components/modal-info/modal-info';
 import { Pagination } from '../../components/pagination/pagination';
 import { useBook } from '../../hooks';
 import { Book } from '../../models/book.model';
@@ -18,6 +19,7 @@ export const Home = () => {
     favoriteList,
   } = useBook();
   const [countPage, setCountPage] = useState(1);
+  const [open, setOpen] = useState(false);
 
   const searchLength = search.length >= 3;
 
@@ -54,6 +56,7 @@ export const Home = () => {
   return (
     <section className="home-container">
       <Header />
+      <ModalInfo open={open} closeModal={() => setOpen(false)} />
 
       {!getFavoriteState() ? (
         <>
@@ -65,6 +68,7 @@ export const Home = () => {
                   save={handleFavoritar}
                   key={book.id}
                   favoritoState={!getFavoriteState()}
+                  modal={() => setOpen(true)}
                 />
               ))
             ) : (
@@ -90,6 +94,7 @@ export const Home = () => {
               save={handleFavoritar}
               key={book.id}
               favoritoState={!getFavoriteState()}
+              modal={() => setOpen(true)}
             />
           ))}
         </div>

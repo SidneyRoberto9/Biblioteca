@@ -111,4 +111,6 @@ export interface BooksContextData {
   maxPages: number;
   favorited: (value: boolean) => void;
   getFavoriteState: () => boolean;
+  actualBook: Book;
+  setActualBookF: (book: Book) => void;
 }
