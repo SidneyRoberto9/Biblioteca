@@ -2,6 +2,7 @@ import './header.scss';
 
 import React from 'react';
 
+import { Filtro } from '../filtro/filtro';
 import { Search } from '../search/search';
 
 export const Header = () => {
@@ -12,11 +13,7 @@ export const Header = () => {
       </div>
 
       <Search />
-
-      <ul>
-        <li>Inicio</li>
-        <li>Favoritos</li>
-      </ul>
+      <Filtro />
     </header>
   );
 };

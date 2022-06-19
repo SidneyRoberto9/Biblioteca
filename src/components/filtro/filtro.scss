@@ -1,0 +1,71 @@
+@use '../../index.scss' as color;
+
+.dropdown {
+  display: flex;
+  position: relative;
+  width: 20%;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    top: 12px;
+    right: 15px;
+    z-index: 10000;
+    border: 2px solid color.$tertiary;
+    border-top: 2px solid color.$white;
+    border-right: 2px solid color.$white;
+    transform: rotate(-45deg);
+    transition: transform 0.5s;
+    pointer-events: none;
+  }
+
+  input {
+    width: 100%;
+    height: 22px;
+    cursor: pointer;
+    background: color.$white;
+
+    outline: none;
+    border: 2px solid color.$secondary;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 7px 20px;
+    border-radius: 12px;
+  }
+
+  .option {
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    background: color.$white;
+    border: 2px solid color.$tertiary;
+
+    box-shadow: 0 30px 30px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    z-index: 10000;
+
+    div {
+      padding: 12px 20px;
+
+      cursor: pointer;
+
+      &:hover {
+        background: color.$tertiary;
+        color: color.$primary;
+      }
+    }
+  }
+}
+
+.active {
+  display: inline-block !important;
+}
+
+.line::before {
+  top: 20px !important;
+  margin: 0;
+  transform: rotate(-225deg) !important;
+}

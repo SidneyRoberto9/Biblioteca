@@ -47,6 +47,7 @@ export const Home = () => {
   return (
     <section className="home-container">
       <Header />
+
       <div className="cards">
         {searchLength ? (
           books.map((book: Book) => (
