@@ -105,3 +105,11 @@ export interface favorite {
   title: string;
   selfLink: string;
 }
+
+export interface BooksContextData {
+  books: Book[];
+  searchContent: (search: string) => void;
+  changePage: (page: number) => void;
+  getPage: () => Promise<number>;
+  maxPages: number;
+}
