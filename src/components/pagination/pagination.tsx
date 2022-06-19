@@ -31,7 +31,7 @@ export const Pagination = (props: PaginationProps) => {
           const isActive = page === current;
 
           return (
-            <div className={isActive && 'active'}>
+            <div className={isActive ? 'active' : ''} key={page}>
               <button onClick={() => OnPageChange(page)}>{page}</button>
             </div>
           );

@@ -26,7 +26,6 @@ export const Home = () => {
     } else {
       changePage(1);
     }
-    console.log(offset);
   };
 
   return (
@@ -43,7 +42,7 @@ export const Home = () => {
       </div>
       {searchLength && (
         <Pagination
-          limit={20}
+          limit={25}
           total={maxPages}
           offset={countPage}
           setOffset={setOffset}

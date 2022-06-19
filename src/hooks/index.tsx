@@ -13,7 +13,7 @@ type BooksContextProps = {
 };
 
 export function BooksContextProvider({ children }: BooksContextProps) {
-  const MAX_PAGE = 25;
+  const MAX_PAGE = 20;
   const [search, setSearch] = useState('');
   const [books, setBooks] = useState<Book[]>([]);
   const [page, setPage] = useState(1);
@@ -24,13 +24,15 @@ export function BooksContextProvider({ children }: BooksContextProps) {
       .get(
         `/volumes?q=${formatStringToSearch(
           search
-        )}&maxResults=${MAX_PAGE}&startIndex=${page}&key=${
-          process.env.REACT_APP_GOOGLE_API_KEY
-        }`
+        )}&maxResults=${MAX_PAGE}&startIndex=${parseInt(
+          (page * MAX_PAGE - MAX_PAGE).toString(),
+          10
+        )}&key=${process.env.REACT_APP_GOOGLE_API_KEY}`
       )
       .then((response) => {
         setBooks(response.data.items);
-        setMaxPages(response.data.totalItems * MAX_PAGE);
+        setMaxPages(response.data.totalItems);
+        console.log(maxPages);
       })
       .catch((error) => console.log(error));
   };
