@@ -1,6 +1,6 @@
 import './home.scss';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Card } from '../../components/card/card';
 import { Header } from '../../components/header/header';
@@ -9,13 +9,25 @@ import { useBook } from '../../hooks';
 import { Book, favorite } from '../../models/book.model';
 
 export const Home = () => {
-  const { books, search } = useBook();
+  const { books, search, changePage, maxPages } = useBook();
+  const [countPage, setCountPage] = useState(1);
+
+  const searchLength = search.length >= 3;
 
   const handleFavoritar = (book: favorite) => {
     console.log(books);
   };
 
-  const searchLength = search.length >= 3;
+  const setOffset = (offset: number) => {
+    window.scrollTo(0, 0);
+    setCountPage(offset);
+    if (offset) {
+      changePage(offset / 10);
+    } else {
+      changePage(1);
+    }
+    console.log(offset);
+  };
 
   return (
     <section className="home-container">
@@ -29,7 +41,14 @@ export const Home = () => {
           <div className="bg">Faça Sua Pesquisa Para Obter Resultados...</div>
         )}
       </div>
-      {searchLength && <Pagination />}
+      {searchLength && (
+        <Pagination
+          limit={20}
+          total={maxPages}
+          offset={countPage}
+          setOffset={setOffset}
+        />
+      )}
     </section>
   );
 };

@@ -1,6 +1,7 @@
 @use '../../index.scss' as color;
 
 .pagination {
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -10,9 +11,17 @@
   button {
     border-radius: 0.25rem;
     border: none;
-    background: color.$primary;
+    background-color: color.$primary;
+    color: color.$secondary;
     padding: 12px;
     margin-bottom: 2rem;
     cursor: pointer;
+  }
+
+  .active {
+    button {
+      background-color: color.$tertiary;
+      color: color.$primary;
+    }
   }
 }
