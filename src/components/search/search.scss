@@ -1,6 +1,10 @@
 @use '../../index.scss' as color;
 
 .search {
+  @media (max-width: 425px) {
+    width: 80%;
+  }
+
   width: 50%;
   position: relative;
   display: flex;

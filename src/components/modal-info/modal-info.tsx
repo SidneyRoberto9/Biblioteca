@@ -56,8 +56,12 @@ export const ModalInfo = ({ open, closeModal }: ModalProps) => {
             return (
               <>
                 <span>
-                  <b>{item.name}: </b>
-                  {item.info}
+                  {item.info && (
+                    <>
+                      <b>{item.name}: </b>
+                      {item.info}
+                    </>
+                  )}
                 </span>
               </>
             );

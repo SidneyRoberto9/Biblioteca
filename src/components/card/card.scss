@@ -1,6 +1,13 @@
 @use '../../index.scss' as color;
 
 .card {
+  @media (max-width: 425px) {
+    margin: 0 12vw;
+    width: 70vw;
+    justify-content: center;
+    align-items: center;
+  }
+
   width: 220px;
   height: 280px;
   position: relative;

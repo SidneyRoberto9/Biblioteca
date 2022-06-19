@@ -1,6 +1,12 @@
 @use '../../index.scss' as color;
 
 .header {
+  @media (max-width: 425px) {
+    display: flex;
+    flex-direction: column;
+    height: 220px;
+  }
+
   display: flex;
   justify-content: space-around;
   align-items: center;

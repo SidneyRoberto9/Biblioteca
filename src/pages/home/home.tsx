@@ -73,7 +73,7 @@ export const Home = () => {
               ))
             ) : (
               <div className="bg">
-                Faça Sua Pesquisa Para Obter Resultados...
+                Use a Barra de Pesquisa para Obter Livros...
               </div>
             )}
           </div>
