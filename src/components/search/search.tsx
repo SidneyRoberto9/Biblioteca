@@ -3,7 +3,7 @@ import './search.scss';
 import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 
-import { useBook } from '../../hooks';
+import { useBook } from '../../hooks/useBook';
 
 export const Search = () => {
   const { searchContent } = useBook();

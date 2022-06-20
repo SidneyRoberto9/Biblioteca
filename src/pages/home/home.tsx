@@ -6,42 +6,16 @@ import { Card } from '../../components/card/card';
 import { Header } from '../../components/header/header';
 import { ModalInfo } from '../../components/modal-info/modal-info';
 import { Pagination } from '../../components/pagination/pagination';
-import { useBook } from '../../hooks';
+import { useBook } from '../../hooks/useBook';
 import { Book } from '../../models/book.model';
 
 export const Home = () => {
-  const {
-    books,
-    search,
-    changePage,
-    maxPages,
-    getFavoriteState,
-    favoriteList,
-  } = useBook();
+  const { books, search, changePage, maxPages, getFavorite, favoriteList } =
+    useBook();
   const [countPage, setCountPage] = useState(1);
   const [open, setOpen] = useState(false);
 
   const searchLength = search.length >= 3;
-
-  const handleFavoritar = (book: Book) => {
-    const fav = localStorage.getItem('favorites');
-
-    if (!fav) {
-      localStorage.setItem('favorites', JSON.stringify([book]));
-      return;
-    }
-
-    const favorites = JSON.parse(fav);
-
-    if (favorites.find((data: Book) => data.id === book.id)) {
-      let newFavorites = favorites.filter((data: Book) => data.id !== book.id);
-      localStorage.setItem('favorites', JSON.stringify(newFavorites));
-      return;
-    }
-
-    favorites.push(book);
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  };
 
   const setOffset = (offset: number) => {
     window.scrollTo(0, 0);
@@ -58,18 +32,18 @@ export const Home = () => {
       <Header />
       <ModalInfo open={open} closeModal={() => setOpen(false)} />
 
-      {!getFavoriteState() ? (
+      {getFavorite() ? (
+        <div className="cards">
+          {favoriteList.map((book: Book) => (
+            <Card book={book} key={book.id} modal={() => setOpen(true)} />
+          ))}
+        </div>
+      ) : (
         <>
           <div className="cards">
             {searchLength ? (
               books.map((book: Book) => (
-                <Card
-                  book={book}
-                  save={handleFavoritar}
-                  key={book.id}
-                  favoritoState={!getFavoriteState()}
-                  modal={() => setOpen(true)}
-                />
+                <Card book={book} key={book.id} modal={() => setOpen(true)} />
               ))
             ) : (
               <div className="bg">
@@ -86,18 +60,6 @@ export const Home = () => {
             />
           )}
         </>
-      ) : (
-        <div className="cards">
-          {favoriteList.map((book: Book) => (
-            <Card
-              book={book}
-              save={handleFavoritar}
-              key={book.id}
-              favoritoState={!getFavoriteState()}
-              modal={() => setOpen(true)}
-            />
-          ))}
-        </div>
       )}
     </section>
   );

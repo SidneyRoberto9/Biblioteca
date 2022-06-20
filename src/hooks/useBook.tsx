@@ -22,7 +22,7 @@ export function BooksContextProvider({ children }: BooksContextProps) {
   const [favoriteList, setFavoriteList] = useState<Book[]>([]);
   const [actualBook, setActualBook] = useState<Book>();
 
-  const getFavorites = () => {
+  const getSavedFavorites = () => {
     const favorites = localStorage.getItem('favorites');
     if (!favorites) {
       return [];
@@ -42,7 +42,7 @@ export function BooksContextProvider({ children }: BooksContextProps) {
       )
       .then((response) => {
         setBooks(() => {
-          const favoriteBooks = getFavorites();
+          const favoriteBooks = getSavedFavorites();
 
           let library = response.data.items.map((book: Book) => {
             if (favoriteBooks.find((data: Book) => data.id === book.id)) {
@@ -64,57 +64,59 @@ export function BooksContextProvider({ children }: BooksContextProps) {
       .catch((error) => error);
   };
 
-  useEffect(() => {
-    setFavoriteList(getFavorites());
-  }, [favorite]);
+  const updateBooks = () => {
+    search.length >= 3 && getBooks();
+  };
 
-  useEffect(() => {
-    if (favorite) {
-      setBooks(favoriteList);
-    } else {
-      search.length >= 3 && getBooks();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, search, books, favorite]);
-
-  const changePage = async (page: number) => {
+  const changePage = (page: number) => {
     setPage(page);
   };
 
-  const getPage = async () => {
+  const getPage = () => {
     return page;
   };
 
-  const searchContent = async (value: string) => {
+  const searchContent = (value: string) => {
     setSearch(value);
   };
 
-  const favorited = async (value: boolean) => {
+  const favoritePage = (value: boolean) => {
     setFavorite(value);
   };
 
-  const getFavoriteState = () => {
+  const getFavorite = () => {
     return favorite;
   };
 
-  const setActualBookF = async (book: Book) => {
-    setActualBook(book);
+  const favoriteUpdate = () => {
+    setFavoriteList(getSavedFavorites());
   };
+
+  useEffect(() => {
+    setFavoriteList(getSavedFavorites());
+  }, [favorite]);
+
+  useEffect(() => {
+    search.length >= 3 && getBooks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, search]);
 
   return (
     <BooksContext.Provider
       value={{
         books,
+        updateBooks,
         favoriteList,
         searchContent,
         search,
         changePage,
         getPage,
         maxPages,
-        favorited,
-        getFavoriteState,
+        favoritePage,
+        getFavorite,
+        favoriteUpdate,
         actualBook,
-        setActualBookF,
+        setActualBook,
       }}
     >
       {children}

@@ -103,14 +103,19 @@ export interface ReadingModes {
 
 export interface BooksContextData {
   books: Book[];
-  favoriteList: Book[];
+  updateBooks: () => void;
+
   searchContent: (search: string) => void;
   search: string;
   changePage: (page: number) => void;
-  getPage: () => Promise<number>;
+  getPage: () => number;
   maxPages: number;
-  favorited: (value: boolean) => void;
-  getFavoriteState: () => boolean;
+
+  favoriteList: Book[];
+  favoritePage: (value: boolean) => void;
+  getFavorite: () => boolean;
+  favoriteUpdate: () => void;
+
   actualBook: Book;
-  setActualBookF: (book: Book) => void;
+  setActualBook: (book: Book) => void;
 }

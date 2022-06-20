@@ -4,7 +4,7 @@ import 'react-responsive-modal/styles.css';
 import React from 'react';
 import { Modal } from 'react-responsive-modal';
 
-import { useBook } from '../../hooks';
+import { useBook } from '../../hooks/useBook';
 
 interface ModalProps {
   open: boolean;

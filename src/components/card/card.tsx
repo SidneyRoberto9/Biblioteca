@@ -1,26 +1,64 @@
 import './card.scss';
 
 import React from 'react';
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineClose } from 'react-icons/ai';
 
-import { useBook } from '../../hooks';
+import { useBook } from '../../hooks/useBook';
 import { Book } from '../../models/book.model';
 
 interface CardProps {
   book: Book;
-  save: (book: Book) => void;
-  favoritoState: boolean;
+
   modal: () => void;
 }
 
 export const Card = (props: CardProps) => {
-  const { book, save, favoritoState, modal } = props;
-  const { setActualBookF } = useBook();
+  const { book, modal } = props;
+  const { setActualBook, getFavorite, favoriteUpdate } = useBook();
 
   const handleOpenModal = () => {
     modal();
-    setActualBookF(book);
+    setActualBook(book);
   };
+
+  const handleFavoriteSave = (book: Book) => {
+    const favoriteClass = document.querySelector(`.id-${book.id}`);
+    favoriteClass.classList.toggle('liked');
+
+    const fav = localStorage.getItem('favorites');
+
+    if (!fav) {
+      localStorage.setItem('favorites', JSON.stringify([book]));
+      return;
+    }
+
+    const favorites = JSON.parse(fav);
+
+    if (favorites.find((data: Book) => data.id === book.id)) {
+      let newFavorites = favorites.filter((data: Book) => data.id !== book.id);
+      localStorage.setItem('favorites', JSON.stringify(newFavorites));
+      return;
+    }
+
+    favorites.push(book);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  };
+
+  const handleFavoriteDelete = (book: Book) => {
+    const favorites = JSON.parse(localStorage.getItem('favorites'));
+
+    let newFavorites = favorites.filter((data: Book) => data.id !== book.id);
+    localStorage.setItem('favorites', JSON.stringify(newFavorites));
+    favoriteUpdate();
+
+    const favoriteClass = document.querySelector(`.id-${book.id}`);
+    favoriteClass && favoriteClass.classList.remove('liked');
+  };
+
+  if (book.favorite) {
+    const favoriteClass = document.querySelector(`.id-${book.id}`);
+    favoriteClass && favoriteClass.classList.add('liked');
+  }
 
   return (
     <div className="card">
@@ -37,10 +75,14 @@ export const Card = (props: CardProps) => {
         {book.volumeInfo.title}
       </span>
 
-      {favoritoState && (
+      {getFavorite() ? (
+        <span className="favorite" onClick={() => handleFavoriteDelete(book)}>
+          <AiOutlineClose className="icon" />
+        </span>
+      ) : (
         <span
-          className={book.favorite ? 'liked' : 'favorite'}
-          onClick={() => save(book)}
+          className={`favorite id-${book.id}`}
+          onClick={() => handleFavoriteSave(book)}
         >
           <AiFillHeart className="icon" />
         </span>
